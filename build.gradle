@@ -1,0 +1,59 @@
+buildscript {
+	ext {
+		springBootVersion = '2.0.0.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+		mavenLocal()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+group = 'com.maat.bestbuy.integration'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+	maven { url "https://repo.spring.io/milestone" }
+	mavenLocal()
+}
+
+
+ext {
+	springCloudVersion = 'Finchley.M8'
+}
+
+dependencies {
+	compile('org.springframework.boot:spring-boot-starter-actuator')
+	compile('org.springframework.boot:spring-boot-starter-data-jpa')
+	compile('org.springframework.boot:spring-boot-starter-jdbc')
+	compile('org.springframework.boot:spring-boot-starter-web-services')
+	//compile('org.springframework.cloud:spring-cloud-starter-netflix-eureka-client')
+	compile('org.springframework.cloud:spring-cloud-config-client')
+	compile('org.springframework.cloud:spring-cloud-starter-netflix-hystrix')
+    compile ('com.github.ulisesbocchio:jasypt-spring-boot-starter:1.18')
+    compile('org.codehaus.groovy:groovy-all:2.4.13')
+    compile('cglib:cglib-nodep:3.2.6')
+    compile('org.jasypt:jasypt:1.9.2')
+    compile('com.oracle:ojdbc7:12.1.0.2')
+    compile('org.hibernate:hibernate-validator:6.0.7.Final')
+    compile('org.hibernate:hibernate-ehcache:5.2.12.Final')
+	runtime('org.springframework.boot:spring-boot-devtools')
+	compileOnly('org.projectlombok:lombok')
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+    testCompile('org.spockframework:spock-core:1.1-groovy-2.4')
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+	}
+}
