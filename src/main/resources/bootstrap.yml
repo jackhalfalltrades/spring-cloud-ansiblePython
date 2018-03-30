@@ -1,9 +1,9 @@
 spring:
   application:
-    name: mt5-launch-ansible
+    name: ${APP_NAME}
   profiles:
     active:
-      - dev
+      - ${ENV}
   cloud:
     config:
-      uri: https://usbb5cg7022ntz.na.bestbuy.com:60143
+      uri: ${CLOUD_CONFIG_SERVER_URL}
