@@ -1,4 +1,4 @@
-package com.maat.bestbuy.integration.exception;
+package com.spring.cloud.ansiblePython.exception;
 
 import org.apache.commons.lang.StringUtils;
 

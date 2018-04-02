@@ -1,4 +1,4 @@
-package com.maat.bestbuy.integration.exception;
+package com.spring.cloud.ansiblePython.exception;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.http.HttpStatus;
@@ -16,7 +16,7 @@ public class InternalServerErrorException extends RuntimeException implements Se
 
     public InternalServerErrorException(String messageKey, Object[] params) {
         super(StringUtils.isBlank(messageKey) ? "runtime.exception" : messageKey);
-        this.params = params == null? null : params.clone();
+        this.params = params == null ? null : params.clone();
     }
 
     public InternalServerErrorException(String message, Throwable cause) {
@@ -25,12 +25,12 @@ public class InternalServerErrorException extends RuntimeException implements Se
     }
 
     public InternalServerErrorException(String message) {
-        super (message);
+        super(message);
         this.params = null;
     }
 
     public Object[] getParams() {
-        if(params != null) {
+        if (params != null) {
             return Arrays.copyOf(params, params.length);
         } else {
             return new Object[0];

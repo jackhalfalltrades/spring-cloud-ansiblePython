@@ -1,12 +1,12 @@
-package com.maat.bestbuy.integration.exception.handler;
+package com.spring.cloud.ansiblePython.exception.handler;
 
-import com.maat.bestbuy.integration.exception.AuthorizationException;
-import com.maat.bestbuy.integration.exception.BadRequestException;
-import com.maat.bestbuy.integration.exception.InternalServerErrorException;
-import com.maat.bestbuy.integration.exception.ResourceNotFoundException;
-import com.maat.bestbuy.integration.model.ErrorInfo;
-import com.maat.bestbuy.integration.model.ValidationErrors;
 import com.netflix.hystrix.exception.HystrixTimeoutException;
+import com.spring.cloud.ansiblePython.exception.AuthorizationException;
+import com.spring.cloud.ansiblePython.exception.BadRequestException;
+import com.spring.cloud.ansiblePython.exception.InternalServerErrorException;
+import com.spring.cloud.ansiblePython.exception.ResourceNotFoundException;
+import com.spring.cloud.ansiblePython.model.ErrorInfo;
+import com.spring.cloud.ansiblePython.model.ValidationErrors;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.slf4j.Logger;
@@ -32,16 +32,12 @@ import java.util.List;
 @ControllerAdvice
 public class RestExceptionHandler implements MessageSourceAware {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(RestExceptionHandler.class);
+    private static final String RUNTIME_EXCEPTION = "runtime.exception";
+    private static final String HYSTRIX_TIMEOUT_EXCEPTION = "timeout.exception";
+    private static final String RESOURCE_NOT_FOUND = "resource.not.found";
     @Autowired
     private MessageSource messageSource;
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(RestExceptionHandler.class);
-
-    private static final String RUNTIME_EXCEPTION = "runtime.exception";
-
-    private static final String HYSTRIX_TIMEOUT_EXCEPTION = "timeout.exception";
-
-    private static final String RESOURCE_NOT_FOUND = "resource.not.found";
 
     @ExceptionHandler(HystrixTimeoutException.class)
     @ResponseStatus(value = HttpStatus.REQUEST_TIMEOUT)
@@ -61,7 +57,7 @@ public class RestExceptionHandler implements MessageSourceAware {
         LOGGER.error(ExceptionUtils.getFullStackTrace(ex));
 
         String errorMessage = messageSource
-                .getMessage(RUNTIME_EXCEPTION, new Object[] { ex.getMessage() }, LocaleContextHolder.getLocale());
+                .getMessage(RUNTIME_EXCEPTION, new Object[]{ex.getMessage()}, LocaleContextHolder.getLocale());
         String errorURL = req.getRequestURL().toString();
         return new ErrorInfo(errorURL, errorMessage, HttpStatus.INTERNAL_SERVER_ERROR.toString());
     }
@@ -72,7 +68,7 @@ public class RestExceptionHandler implements MessageSourceAware {
     public ErrorInfo generalException(HttpServletRequest req, Exception ex) {
         LOGGER.error(ExceptionUtils.getFullStackTrace(ex));
 
-        String errorMessage = messageSource.getMessage(RUNTIME_EXCEPTION, new Object[] { ex.getClass().getName() },
+        String errorMessage = messageSource.getMessage(RUNTIME_EXCEPTION, new Object[]{ex.getClass().getName()},
                 LocaleContextHolder.getLocale());
         String errorURL = req.getRequestURL().toString();
         return new ErrorInfo(errorURL, errorMessage, HttpStatus.INTERNAL_SERVER_ERROR.toString());
@@ -84,7 +80,7 @@ public class RestExceptionHandler implements MessageSourceAware {
     public ErrorInfo processBadRequestError(HttpServletRequest req, BadRequestException ex) {
         LOGGER.error(StringEscapeUtils.escapeJava("[Bad Request Exception] " + ex.getMessage()), ex);
 
-        String errorMessage = messageSource.getMessage("badrequest.exception", new Object[] {ex.getMessage(), ex.getParams()}, LocaleContextHolder.getLocale());
+        String errorMessage = messageSource.getMessage("badrequest.exception", new Object[]{ex.getMessage(), ex.getParams()}, LocaleContextHolder.getLocale());
         String errorURL = req.getRequestURL().toString();
         return new ErrorInfo(errorURL, errorMessage, HttpStatus.BAD_REQUEST.toString());
     }
@@ -95,7 +91,7 @@ public class RestExceptionHandler implements MessageSourceAware {
     public ErrorInfo processRequestNotReadableError(HttpServletRequest req, HttpMessageNotReadableException ex) {
         LOGGER.error(StringEscapeUtils.escapeJava("[Http Request Not Readable Exception] " + ex.getMessage()), ex);
 
-        String errorMessage = messageSource.getMessage("requestnotreadable.exception", new Object[] { ex.getMessage() },
+        String errorMessage = messageSource.getMessage("requestnotreadable.exception", new Object[]{ex.getMessage()},
                 LocaleContextHolder.getLocale());
         String errorURL = req.getRequestURL().toString();
         return new ErrorInfo(errorURL, errorMessage, HttpStatus.BAD_REQUEST.toString());
@@ -106,7 +102,7 @@ public class RestExceptionHandler implements MessageSourceAware {
     @ResponseBody
     public ErrorInfo processResourceNotFoundError(HttpServletRequest req, ResourceNotFoundException ex) {
         LOGGER.error(StringEscapeUtils.escapeJava("[Resource Not Found Exception] " + ex.getMessage()), ex);
-        String errorMessage = messageSource.getMessage(RESOURCE_NOT_FOUND, new Object[] { ex.getClass().getName(), ex.getLocalizedMessage(), ex.getParams() }, LocaleContextHolder.getLocale());
+        String errorMessage = messageSource.getMessage(RESOURCE_NOT_FOUND, new Object[]{ex.getClass().getName(), ex.getLocalizedMessage(), ex.getParams()}, LocaleContextHolder.getLocale());
         String errorURL = req.getRequestURL().toString();
         return new ErrorInfo(errorURL, errorMessage, HttpStatus.NOT_FOUND.toString());
     }

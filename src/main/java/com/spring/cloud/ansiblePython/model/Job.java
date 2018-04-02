@@ -1,4 +1,4 @@
-package com.maat.bestbuy.integration.model;
+package com.spring.cloud.ansiblePython.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,8 +18,8 @@ import java.util.Date;
 public class Job {
 
     @Id
-    @GeneratedValue(generator="system-uuid")
-    @GenericGenerator(name="system-uuid", strategy = "uuid")
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid")
     @Column(name = "ID")
     private String id;
 
@@ -53,7 +53,7 @@ public class Job {
     @Column(name = "SUBMITTED_TIME_STAMP")
     private Date submittedTimeStamp;
 
-    @Column(name="JOB_STATUS")
+    @Column(name = "JOB_STATUS")
     private String jobStatus;
 
     @Column(name = "IS_SCHEDUED")

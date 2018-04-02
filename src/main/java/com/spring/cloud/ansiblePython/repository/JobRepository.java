@@ -1,6 +1,6 @@
-package com.maat.bestbuy.integration.repository;
+package com.spring.cloud.ansiblePython.repository;
 
-import com.maat.bestbuy.integration.model.Job;
+import com.spring.cloud.ansiblePython.model.Job;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

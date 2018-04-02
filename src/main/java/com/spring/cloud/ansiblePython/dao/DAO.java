@@ -1,12 +1,12 @@
-package com.maat.bestbuy.integration.dao;
+package com.spring.cloud.ansiblePython.dao;
 
-import com.maat.bestbuy.integration.exception.BadRequestException;
-import com.maat.bestbuy.integration.exception.MAATRuntimeException;
-import com.maat.bestbuy.integration.exception.ResourceNotFoundException;
-import com.maat.bestbuy.integration.model.Job;
-import com.maat.bestbuy.integration.model.Payload;
-import com.maat.bestbuy.integration.model.Response;
-import com.maat.bestbuy.integration.repository.JobRepository;
+import com.spring.cloud.ansiblePython.exception.BadRequestException;
+import com.spring.cloud.ansiblePython.exception.MAATRuntimeException;
+import com.spring.cloud.ansiblePython.exception.ResourceNotFoundException;
+import com.spring.cloud.ansiblePython.model.Job;
+import com.spring.cloud.ansiblePython.model.Payload;
+import com.spring.cloud.ansiblePython.model.Response;
+import com.spring.cloud.ansiblePython.repository.JobRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +24,9 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository("jobRunDao")
-public class JobRunDAO {
+public class DAO {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(JobRunDAO.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(DAO.class);
 
     private JobRepository jobRepository;
 
@@ -42,7 +42,7 @@ public class JobRunDAO {
     private boolean found = false;
 
     @Autowired
-    public JobRunDAO(JobRepository jobRepository) {
+    public DAO(JobRepository jobRepository) {
         this.jobRepository = jobRepository;
     }
 

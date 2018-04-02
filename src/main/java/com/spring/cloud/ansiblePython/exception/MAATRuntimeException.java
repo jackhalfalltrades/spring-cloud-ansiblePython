@@ -1,4 +1,4 @@
-package com.maat.bestbuy.integration.exception;
+package com.spring.cloud.ansiblePython.exception;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.http.HttpStatus;
@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.Arrays;
 
 @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-public class MAATRuntimeException extends RuntimeException implements Serializable{
+public class MAATRuntimeException extends RuntimeException implements Serializable {
 
     private static final long serialVersionUID = -54623194351074231L;
 
@@ -16,7 +16,7 @@ public class MAATRuntimeException extends RuntimeException implements Serializab
 
     public MAATRuntimeException(String messageKey, Object[] params) {
         super(StringUtils.isBlank(messageKey) ? "runtime.exception" : messageKey);
-        this.params = params == null? null : params.clone();
+        this.params = params == null ? null : params.clone();
     }
 
     public MAATRuntimeException(String message, Throwable cause) {
@@ -25,12 +25,12 @@ public class MAATRuntimeException extends RuntimeException implements Serializab
     }
 
     public MAATRuntimeException(String message) {
-        super (message);
+        super(message);
         this.params = null;
     }
 
     public Object[] getParams() {
-        if(params != null) {
+        if (params != null) {
             return Arrays.copyOf(params, params.length);
         } else {
             return new Object[0];

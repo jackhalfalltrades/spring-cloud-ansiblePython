@@ -1,18 +1,22 @@
-package com.maat.bestbuy.integration.model;
+package com.spring.cloud.ansiblePython.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true)
 @Data
-@AllArgsConstructor
 @Builder
-public class RequestPropertyError {
+@AllArgsConstructor
+@NoArgsConstructor
+public class Response {
 
-    private final String field;
-    private final String message;
+    private String jobID;
+
+    private String status;
 }
+

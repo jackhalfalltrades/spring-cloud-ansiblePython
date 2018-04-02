@@ -1,8 +1,8 @@
-package com.maat.bestbuy.integration.web.controller;
+package com.spring.cloud.ansiblePython.web.controller;
 
-import com.maat.bestbuy.integration.model.Payload;
-import com.maat.bestbuy.integration.model.Response;
-import com.maat.bestbuy.integration.service.JobRunService;
+import com.spring.cloud.ansiblePython.model.Payload;
+import com.spring.cloud.ansiblePython.model.Response;
+import com.spring.cloud.ansiblePython.service.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,24 +14,25 @@ import rx.Observable;
 import javax.validation.Valid;
 
 @RestController
-public class JobRunController {
+public class Controller {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(JobRunController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(Controller.class);
 
-    private JobRunService jobRunService;
+    private Service service;
 
     @Autowired
-    public JobRunController(JobRunService jobRunService) {
-        this.jobRunService = jobRunService;
+    public Controller(Service service) {
+        this.service = service;
     }
 
     @PostMapping(value = "/deployToAnsible/execute", produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public @CrossOrigin @ResponseBody
+    public @CrossOrigin
+    @ResponseBody
     DeferredResult<Response> deployToAnsible(@RequestBody @Valid Payload payload) {
         LOGGER.info("controller(): -> deploy to Ansible => payload: {}", payload);
-        Observable<Response> responseObservable = jobRunService.deployToAnsible(payload);
+        Observable<Response> responseObservable = service.deployToAnsible(payload);
         DeferredResult<Response> result = new DeferredResult<>();
-        responseObservable.subscribe(response-> result.setResult(response), e-> result.setErrorResult(e));
+        responseObservable.subscribe(response -> result.setResult(response), e -> result.setErrorResult(e));
         return result;
     }
 }
